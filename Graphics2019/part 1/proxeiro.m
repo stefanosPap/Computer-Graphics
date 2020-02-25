@@ -1,10 +1,12 @@
 clear
+l = 1
+o = 9
 V = [10 4;2 6;5 9];
 C = [0.1 0.2 0.3;0.2 0.3 0.5;0.7 0.8 0.3];
 %find xmin,xmax,ymin,ymax for each edge of the triangle 
 xmin = zeros(1,3);
 xmax = zeros(1,3);
-ymin = zeros(1,3);
+ymin = zeros(1,3); 
 ymax = zeros(1,3);
 X = zeros(1200,1200,3);
 image=zeros(1200,1200,3);
