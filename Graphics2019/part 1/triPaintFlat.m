@@ -22,6 +22,16 @@ function Y = triPaintFlat(X,V,C)
             ymax(i) = max(V(i,2),V(i-2,2));
         end
     end
+    countYmax = 0;
+    countYmin = 0;
+    for i =1:3
+        if ymax(i) == ymax(1)
+            countYmax = countYmax + 1;
+        end
+        if ymin(i) == ymin(1)
+            countYmin = countYmin + 1;
+        end
+    end
     y_minimum = min(ymin(:));%find y_min from the whole triangle 
     y_maximum = max(ymax(:));%find y_max from the whole triangle
     %compute and store active edges for ymin scanline
@@ -71,7 +81,6 @@ function Y = triPaintFlat(X,V,C)
             countY = countY + 1;
         end
     end
-   
 
     %apply scanline algorithm
     if countX ~= 3 && countY ~= 3 && countM ~= 3
@@ -104,8 +113,6 @@ function Y = triPaintFlat(X,V,C)
                     X(y,x,3) = b;  
                 end
                 %if x surpass the second active point we break the loop 
-                %or the second point is Inf 
-                %this case exists when m1=0 or m2=0 so we break the loop 
                 if x>activePoints.x2
                     break;
                 end
@@ -116,7 +123,7 @@ function Y = triPaintFlat(X,V,C)
             %when y reaches minimum value of ymax array then we should change active sides
    
    
-            if y+1 == max(ymin(:)) && countX ~= 3 && countM ~= 3
+            if y+1 == max(ymin(:)) && countYmax ~= 3 && countYmin ~= 3
                 k = 1;
                 index = zeros(2,1);
                 newActiveEdges = zeros(2,1);
@@ -176,12 +183,10 @@ function Y = triPaintFlat(X,V,C)
                 activeEdges = newActiveEdges;
     
             else
-                if countX ~= 3 && countM ~= 3
-                    activePoints.y1 = activePoints.y1 + 1;
-                    activePoints.x1 = activePoints.x1 + 1/activePoints.m1;
-                    activePoints.y2 = activePoints.y2 + 1;
-                    activePoints.x2 = activePoints.x2 + 1/activePoints.m2;
-                end
+                activePoints.y1 = activePoints.y1 + 1;
+                activePoints.x1 = activePoints.x1 + 1/activePoints.m1;
+                activePoints.y2 = activePoints.y2 + 1;
+                activePoints.x2 = activePoints.x2 + 1/activePoints.m2;
             end
         end
     else
@@ -204,7 +209,7 @@ function Y = triPaintFlat(X,V,C)
             end
         end
         if countM == 3
-            [maxY,i] = max(V(:,2));
+            maxY = max(V(:,2));
             [minY,j] = min(V(:,2));
             startX = V(j,1);
             x = startX;

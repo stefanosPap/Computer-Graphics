@@ -15,7 +15,7 @@ fprintf('\n *** begin %s ***\n\n',mfilename);
 fprintf('Reading data\n')
 
 try 
-    load('cat.mat');
+    load('duck_hw1.mat');
     fprintf('Reading data completed\n\n');
 catch 
     fprintf('Error loading cat.mat file\n\n');
@@ -24,7 +24,7 @@ end
 
 %% FILLING
 fprintf('*objectPainter is now running.......*\n\n');
-image = objectPainter(V, C, F, D, 'Gouraud');
+image = objectPainter(V_2d, C, F, D, 'Gouraud');
 
 %% RESULT
 imshow(image);
