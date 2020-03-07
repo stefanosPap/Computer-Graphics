@@ -118,13 +118,16 @@ function Y =triPaintGouraud(X,V,C)
                          b2 = C(found-2,3);                        
                     end
                     if (array(found).x2-array(found).x1) ~= 0
-                    A(1) = r1 + (r2 - r1)*(x-array(found).x1)/(array(found).x2-array(found).x1);
-                    A(2) = g1 + (g2 - g1)*(x-array(found).x1)/(array(found).x2-array(found).x1);
-                    A(3) = b1 + (b2 - b1)*(x-array(found).x1)/(array(found).x2-array(found).x1);
+                    vectorX = [x y];
+                    vectorX1 = [array(found).x1 array(found).y1];
+                    vectorX2 = [array(found).x2 array(found).y2];
+                    A(1) = r1 + (r2 - r1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                    A(2) = g1 + (g2 - g1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                    A(3) = b1 + (b2 - b1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
                     else
-                    A(1) = (r1 + r2)/2;
-                    A(2) = (g1 + g2)/2;
-                    A(3) = (b1 + b2)/2;
+                    A(1) = r1 + (r2 - r1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
+                    A(2) = g1 + (g2 - g1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
+                    A(3) = b1 + (b2 - b1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
                     end
                     X(y,x,1) = A(1);
                     X(y,x,2) = A(2);
@@ -153,13 +156,16 @@ function Y =triPaintGouraud(X,V,C)
                          b2 = C(found-2,3);                        
                     end
                     if (array(found).x2-array(found).x1) ~= 0
-                    B(1) = r1 + (r2 - r1)*(x-array(found).x1)/(array(found).x2-array(found).x1);
-                    B(2) = g1 + (g2 - g1)*(x-array(found).x1)/(array(found).x2-array(found).x1);
-                    B(3) = b1 + (b2 - b1)*(x-array(found).x1)/(array(found).x2-array(found).x1);
+                    vectorX = [x y];
+                    vectorX1 = [array(found).x1 array(found).y1];
+                    vectorX2 = [array(found).x2 array(found).y2];
+                    B(1) = r1 + (r2 - r1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                    B(2) = g1 + (g2 - g1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                    B(3) = b1 + (b2 - b1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
                     else
-                    B(1) = (r1 + r2)/2;
-                    B(2) = (g1 + g2)/2;
-                    B(3) = (b1 + b2)/2;
+                    B(1) = r1 + (r2 - r1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
+                    B(2) = g1 + (g2 - g1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
+                    B(3) = b1 + (b2 - b1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
                     end
                     X(y,x,1) = B(1);
                     X(y,x,2) = B(2);
@@ -186,8 +192,8 @@ function Y =triPaintGouraud(X,V,C)
                 end
 
                 if mod(cross_count,2) == 1
-                    b = activePoints.x1;
-                    a = activePoints.x2;
+                    a = activePoints.x1;
+                    b = activePoints.x2;
                     color = colorInterp(A,B,a,b,x);
                      r = color(1);
                      g = color(2);

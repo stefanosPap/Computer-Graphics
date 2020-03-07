@@ -33,10 +33,10 @@ function I = paintObject(V_2d,F,C,D,painter)
         COL(3,:) = C(matrix(i,4),:);
         %call triPaintFlat or triPaintGouraud according to variable painter
         if strcmp(painter,'Flat') == 1
-            X = triPaintFlat(X,V,COL,i);
+            X = triPaintFlat(X,V,COL);
             i
         else
-            X = triPaintGouraud(X,V,COL,i);
+            X = triPaintGouraud(X,V,COL);
             i
         end
     end

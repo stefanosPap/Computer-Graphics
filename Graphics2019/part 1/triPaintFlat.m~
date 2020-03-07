@@ -1,10 +1,10 @@
 function Y = triPaintFlat(X,V,C)
-%% TRIPAINTFLAT - DESCRIPTION  
+%% TriPaintFlat - Description  
 %   Apply a color to each triangle
 %   The color that each triangle with get painted with, is calculated
 %   as the mean of the color of its' vertices
 
-%% VARIABLES
+%% 
 % X: Image with the some already existing triangles. MxNx3 matrix
 % V: Integer array 3x2 that contains a column with coordinates for each
 % vertex of the triangle
@@ -12,6 +12,8 @@ function Y = triPaintFlat(X,V,C)
 % Y: MxNx3 matrix that contains for every part of the triangle, the RGB
 % values, as well as the pre-existing triangles of X
 % Canva size: MxN
+
+
 
 %%    
     %initialization

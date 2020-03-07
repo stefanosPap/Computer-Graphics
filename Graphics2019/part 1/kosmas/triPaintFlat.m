@@ -3,7 +3,7 @@ function Y = triPaintFlat(X, V, C)
 %   The color that each triangle with get painted with, is calculated
 %   as the mean of the color of its' vertices
 
-%% VARIABLES
+%% VARIABLES 
 % X: Image with the some already existing triangles. MxNx3 matrix
 % V: Integer array 3x2 that contains a column with coordinates for each
 % vertex of the triangle
