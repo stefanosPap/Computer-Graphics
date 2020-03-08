@@ -17,11 +17,6 @@ function Y =triPaintGouraud(X,V,C)
     ymin = zeros(1,3);
     ymax = zeros(1,3);
     
-    %compute color to use it later 
-    r = (C(1,1)+C(2,1)+C(3,1))/3;
-    g = (C(1,2)+C(2,2)+C(3,2))/3;
-    b = (C(1,3)+C(2,3)+C(3,3))/3;
-    
     %compute xmin,xmax,ymin,ymax for each side of the triangle
     for i=1:3
         if i ~= 3
@@ -337,6 +332,11 @@ function Y =triPaintGouraud(X,V,C)
             end
         end
     else %this case is when vertices belong to the same line
+         
+        %compute color 
+        r = (C(1,1)+C(2,1)+C(3,1))/3;
+        g = (C(1,2)+C(2,2)+C(3,2))/3;
+        b = (C(1,3)+C(2,3)+C(3,3))/3;
         
         if countY == 3 %if vertices are parallel to x axis  
             maxX = max(V(:,1)); %find maximum and minimum value of x
