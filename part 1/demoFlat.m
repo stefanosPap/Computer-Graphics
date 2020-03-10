@@ -15,8 +15,9 @@ painter = 'Flat';
 
 %call function paintObject
 fprintf("Running...\n")
+tic
 image = paintObject(V_2d,F,C,D,painter);
-
+toc
 
 %show results
 imshow(image);

@@ -28,7 +28,7 @@ function I = paintObject(V_2d,F,C,D,painter)
     matrix = [d F(:,1) F(:,2) F(:,3)]; 
     matrix = sortrows(matrix,1);%sort them according to the first column 
     
-    for i=K:-1:1
+    for i = K:-1:1
         
         %in matrix V we store the coordinates of the three peaks
         %in order to give it as argument in function triPaintFlat or triPaintGouraud

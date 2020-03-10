@@ -26,7 +26,7 @@ function Y = triPaintFlat(X,V,C)
     
     %compute xmin,xmax,ymin,ymax for each side of the triangle
     for i=1:3
-        if i ~= 3
+        if i ~= 3 
             xmin(i) = min(V(i:i+1,1));
             xmax(i) = max(V(i:i+1,1));
             ymin(i) = min(V(i:i+1,2));
@@ -120,7 +120,7 @@ function Y = triPaintFlat(X,V,C)
             set = 0;%flag that used to examine if the first active point is surpassed
             
             %scan the image
-            for x=1:1200
+            for x=round(activePoints.x1)-1:1200
                 
                 %if active point found increase cross_count 
                 if x >= activePoints.x1 && set == 0
