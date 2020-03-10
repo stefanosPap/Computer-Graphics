@@ -332,16 +332,27 @@ function Y =triPaintGouraud(X,V,C)
             end
         end
     else %this case is when vertices belong to the same line
-         
-        %compute color 
-        r = (C(1,1)+C(2,1)+C(3,1))/3;
-        g = (C(1,2)+C(2,2)+C(3,2))/3;
-        b = (C(1,3)+C(2,3)+C(3,3))/3;
         
         if countY == 3 %if vertices are parallel to x axis  
-            maxX = max(V(:,1)); %find maximum and minimum value of x
-            minX = min(V(:,1));
+            [maxX,maxIndex] = max(V(:,1)); %find maximum and minimum value of x
+            [minX,minIndex] = min(V(:,1));
+            
+            %compute color of maximum and minimun vertex in order to use it later for linear interpolation  
+            r1 = C(maxIndex,1);
+            g1 = C(maxIndex,2);
+            b1 = C(maxIndex,3);
+            
+            r2 = C(minIndex,1);
+            g2 = C(minIndex,2);
+            b2 = C(minIndex,3);
+             
             for x = minX:maxX %scan image in x axis from min to max value of x and paint these points
+                
+                %compute color using linear interpolation
+                r = r1 + (r2 - r1)*norm(x - maxX)/norm(minX - maxX);
+                g = g1 + (g2 - g1)*norm(x - maxX)/norm(minX - maxX);
+                b = b1 + (b2 - b1)*norm(x - maxX)/norm(minX - maxX);
+                
                 X(V(1,2),x,1) = r;
                 X(V(1,2),x,2) = g;
                 X(V(1,2),x,3) = b;
@@ -349,9 +360,25 @@ function Y =triPaintGouraud(X,V,C)
         end
         
         if countX == 3 %if vertices are parallel to y axis
-            maxY = max(V(:,2)); %find maximum and minimum value of y
-            minY = min(V(:,2));
+            [maxY,maxIndex] = max(V(:,2)); %find maximum and minimum value of y
+            [minY,minIndex] = min(V(:,2));
+            
+            %compute color of maximum and minimun vertex in order to use it later for linear interpolation
+            r1 = C(maxIndex,1);
+            g1 = C(maxIndex,2);
+            b1 = C(maxIndex,3);
+            
+            r2 = C(minIndex,1);
+            g2 = C(minIndex,2);
+            b2 = C(minIndex,3);
+            
             for y = minY:maxY %scan image in y axis from min to max value of y and paint these points
+                
+                %compute color using linear interpolation
+                r = r1 + (r2 - r1)*norm(y - maxY)/norm(minY - maxY);
+                g = g1 + (g2 - g1)*norm(y - maxY)/norm(minY - maxY);
+                b = b1 + (b2 - b1)*norm(y - maxY)/norm(minY - maxY);
+                         
                 X(y,V(1,1),1) = r;
                 X(y,V(1,1),2) = g;
                 X(y,V(1,1),3) = b;
@@ -359,12 +386,32 @@ function Y =triPaintGouraud(X,V,C)
         end
         
         if countM == 3 %if vertices are in the same line (have the same slope)
-            maxY = max(V(:,2));%find maximum and minimum value of y
-            [minY,j] = min(V(:,2));
-            startX = V(j,1);
+            [maxY,maxIndex] = max(V(:,2));%find maximum and minimum value of y
+            [minY,minIndex] = min(V(:,2));
+            
+            %compute color of maximum and minimun vertex in order to use it later for linear interpolation
+            r1 = C(maxIndex,1);
+            g1 = C(maxIndex,2);
+            b1 = C(maxIndex,3);
+            
+            r2 = C(minIndex,1);
+            g2 = C(minIndex,2);
+            b2 = C(minIndex,3);            
+            
+            startX = V(minIndex,1);
             x = startX; %x is the rounded value of xMod 
             xMod = startX; %start value of x
+            
             for y = minY:maxY %scan image in y axis from min to max value of y 
+                
+                %compute color using linear interpolation
+                vectorX = [x y];
+                vectorX1 = [V(maxIndex,1) V(maxIndex,2)];
+                vectorX2 = [V(minIndex,1) V(minIndex,2)];
+                r = r1 + (r2 - r1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                g = g1 + (g2 - g1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                b = b1 + (b2 - b1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                                     
                 X(y,x,1) = r; %and increase x by 1/m and paint these points
                 X(y,x,2) = g;
                 X(y,x,3) = b;
