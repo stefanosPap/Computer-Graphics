@@ -1,4 +1,4 @@
-function Y = triPaintGouraud(X,V,C)
+function Y = triPaintGouraud(X,V,C,alpha)
 %% TRIPAINTGOURAUD - DESCRIPTION  
 %   Apply a color to each triangle
 %   The color that each triangle with get painted with, is calculated
@@ -12,6 +12,9 @@ function Y = triPaintGouraud(X,V,C)
 % values, as well as the pre-existing triangles of X
 % Canva size: MxN
 %% INITIALIZATION
+if alpha == 17039
+    p = 1;
+end
     xmin = zeros(1,3);
     xmax = zeros(1,3);
     ymin = zeros(1,3);

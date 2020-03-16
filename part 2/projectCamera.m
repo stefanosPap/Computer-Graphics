@@ -1,14 +1,18 @@
 function [P, D] = projectCamera(w, cv , cx , cy , p)
     cx = cx(:);
     cy = cy(:);
-    R = [cx  cy  zeros(3,1)];
-    d = cv(:);
+    cz = cross(cx,cy);
+    cz = cz(:);
+    
     s = size(p);
+    if s(1) ~= 3
+        p = p';
+        s = size(p);
+    end
     P = zeros(2,s(2));
-    D = zeros(s(2),1);
+
+    p = systemtrans(p , cx , cy , cz , cv);
     for i = 1:s(2)
-        p(:,i) = R' * p(:,i);
-        p(:,i) = -R' * d +p(:,i);
         x = (w * p(1,i)) / p(3,i);
         y = (w * p(2,i)) / p(3,i);
         P(1,i) = x;
