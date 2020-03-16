@@ -320,11 +320,8 @@ function Y =triPaintGouraud(X,V,C)
                  activePoints.x2 = activePoints.x2 + 1/activePoints.m2;
             end
         end
-<<<<<<< HEAD
+
     else %this case happens when vertices belong to the same line
-=======
-    else %this case is when vertices belong to the same line
->>>>>>> 419bda753ab3919d42445450bc761d806e3b1815
         
         if countY == 3 %if vertices are parallel to x axis  
             [maxX,maxIndex] = max(V(:,1)); %find maximum and minimum value of x
@@ -342,15 +339,9 @@ function Y =triPaintGouraud(X,V,C)
             for x = minX:maxX %scan image in x axis from min to max value of x and paint these points
                 
                 %compute color using linear interpolation
-<<<<<<< HEAD
                 r = r1 + (r2 - r1) * norm(x - maxX) / norm(minX - maxX);
                 g = g1 + (g2 - g1) * norm(x - maxX) / norm(minX - maxX);
                 b = b1 + (b2 - b1) * norm(x - maxX) / norm(minX - maxX);
-=======
-                r = r1 + (r2 - r1)*norm(x - maxX)/norm(minX - maxX);
-                g = g1 + (g2 - g1)*norm(x - maxX)/norm(minX - maxX);
-                b = b1 + (b2 - b1)*norm(x - maxX)/norm(minX - maxX);
->>>>>>> 419bda753ab3919d42445450bc761d806e3b1815
                 
                 X(V(1,2),x,1) = r;
                 X(V(1,2),x,2) = g;
@@ -374,15 +365,9 @@ function Y =triPaintGouraud(X,V,C)
             for y = minY:maxY %scan image in y axis from min to max value of y and paint these points
                 
                 %compute color using linear interpolation
-<<<<<<< HEAD
                 r = r1 + (r2 - r1) * norm(y - maxY) / norm(minY - maxY);
                 g = g1 + (g2 - g1) * norm(y - maxY) / norm(minY - maxY);
                 b = b1 + (b2 - b1) * norm(y - maxY) / norm(minY - maxY);
-=======
-                r = r1 + (r2 - r1)*norm(y - maxY)/norm(minY - maxY);
-                g = g1 + (g2 - g1)*norm(y - maxY)/norm(minY - maxY);
-                b = b1 + (b2 - b1)*norm(y - maxY)/norm(minY - maxY);
->>>>>>> 419bda753ab3919d42445450bc761d806e3b1815
                          
                 X(y,V(1,1),1) = r;
                 X(y,V(1,1),2) = g;
