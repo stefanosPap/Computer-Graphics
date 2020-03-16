@@ -1,5 +1,4 @@
-**Part 1** 
-**Implements scanline algorithm for filling triangles.It uses two methods of coloring.**
+**Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of coloring.**
 
 The **first** method is **Flat** method and it gives one specific color to each triangle which is computed as the mean of the three vertices' colors.
 The **result** of the first method exists in *FlatDuck.jpg* image. 
