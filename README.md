@@ -8,8 +8,6 @@ The **second** method is **Gouraud** method.This method gives a color to each tr
 	
 The **result** of the second method exists in *GouraudDuck.jpg* image.
 
-
-
 **Part 2 - Implements transformations, perspective projections and photographs the initial image.**
 
 Firstly it **translates** the image by a constant vector **t1** then it **rotates** it by a constant matrix **R** and finally it **translates** it by another constant vector **t2**.  
