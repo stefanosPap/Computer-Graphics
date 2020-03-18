@@ -9,8 +9,10 @@ p = V';
 % TODO Photograph object with photographObject
 [P_2d , D] = photographObject(p, M, N, H, W, w, cv , ck , cu);
 % TODO Paint object with ObjectPainter with gouraud
+
 I0 = paintObject(P_2d',F,C,D,"Gouraud");
 % Save result
+
 imwrite(I0, '0.jpg');
 
 %% Step 1 - Translate by t1

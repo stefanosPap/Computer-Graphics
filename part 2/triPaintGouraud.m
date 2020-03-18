@@ -1,7 +1,7 @@
-function Y = triPaintGouraud(X,V,C,alpha)
+function Y =triPaintGouraud(X,V,C,i)
 %% TRIPAINTGOURAUD - DESCRIPTION  
 %   Apply a color to each triangle
-%   The color that each triangle with get painted with, is calculated
+%   The color that each triangle get painted with, is calculated
 %   as the linear interpolation of the color of its' vertices
 %% VARIABLES
 % X: Image with the some already existing triangles. MxNx3 matrix
@@ -12,7 +12,7 @@ function Y = triPaintGouraud(X,V,C,alpha)
 % values, as well as the pre-existing triangles of X
 % Canva size: MxN
 %% INITIALIZATION
-if alpha == 17039
+if i == 17288
     p = 1;
 end
     xmin = zeros(1,3);
@@ -21,13 +21,13 @@ end
     ymax = zeros(1,3);
     
     %compute xmin,xmax,ymin,ymax for each side of the triangle
-    for i=1:3
+    for i=1:3 %case of edges 1 and 2
         if i ~= 3
             xmin(i) = min(V(i:i+1,1));
             xmax(i) = max(V(i:i+1,1));
             ymin(i) = min(V(i:i+1,2));
             ymax(i) = max(V(i:i+1,2));
-        else 
+        else %case of edge 3
             xmin(i) = min(V(i,1),V(i-2,1));
             xmax(i) = max(V(i,1),V(i-2,1));
             ymin(i) = min(V(i,2),V(i-2,2));
@@ -39,24 +39,24 @@ end
     countYmin = 0;
     for i =1:3
         if ymax(i) == ymax(1)
-            countYmax = countYmax + 1;%countYmax is used to examine if there is a horizontal line at the top of the triangle
-        end
+            countYmax = countYmax + 1;%countYmax is used to examine if there is
+        end                           %a horizontal line at the top of the triangle
         if ymin(i) == ymin(1)
-            countYmin = countYmin + 1;%countYmax is used to examine if there is a horizontal line at the bottom of the triangle
-        end
+            countYmin = countYmin + 1;%countYmax is used to examine if there is
+        end                           %a horizontal line at the bottom of the triangle
     end
     
-    y_minimum = min(ymin(:));%find y_min from the whole triangle 
-    y_maximum = max(ymax(:));%find y_max from the whole triangle
+    y_minimum = min(ymin(:)); %find y_min from the whole triangle 
+    y_maximum = max(ymax(:)); %find y_max from the whole triangle
  
-    activeEdges = zeros(2,1);%activeEdges has two numbers 1 to 3 which indicates  
-                             %which side is active in every step
+    activeEdges = zeros(2,1); %activeEdges has two numbers 1 to 3 which indicates  
+                              %which side is active in every step
                              
-    m1 = (V(2,2) - V(1,2))/(V(2,1)-V(1,1));%m1,m2,m3 are the splopes of each edge.
+    m1 = (V(2,2) - V(1,2))/(V(2,1)-V(1,1)); %m1,m2,m3 are the splopes of each edge.
     m2 = (V(3,2) - V(2,2))/(V(3,1)-V(2,1));
     m3 = (V(1,2) - V(3,2))/(V(1,1)-V(3,1));
     
-    %array contains the information of each edge, x1,y1 and x2,y2 are two vertices and m is the slope of each side.
+    %array contains the information of each edge, x1,y1 and x2,y2 are coordinates of the two vertices and m is the slope of each side.
     array(1) = struct('x1',V(1,1),'y1',V(1,2),'x2',V(2,1),'y2',V(2,2),'m',m1);
     array(2) = struct('x1',V(2,1),'y1',V(2,2),'x2',V(3,1),'y2',V(3,2),'m',m2);
     array(3) = struct('x1',V(3,1),'y1',V(3,2),'x2',V(1,1),'y2',V(1,2),'m',m3);
@@ -100,7 +100,7 @@ end
     
     if countX ~= 3 && countY ~= 3 && countM ~= 3 && countM ~= 2
         
-        %general case od scanline algorithm where the vertices don't belong in the same line 
+        %general case of scanline algorithm where the vertices don't belong in the same line 
         for y=y_minimum:y_maximum 
         
             %sort active points by increasing x
@@ -109,14 +109,14 @@ end
                 [activePoints.y2 , activePoints.y1] = deal(activePoints.y1,activePoints.y2);
                 [activePoints.m2 , activePoints.m1] = deal(activePoints.m1,activePoints.m2);
             end
-            set = 0;%flag that used to examine if the first active point is surpassed
+            set = 0; %flag that used to examine if the first active point is surpassed
             
-            %each line is scaned twice
-            %first time in order to compute edge's color and seconde time
+            %each line is scanned twice
+            %first time in order to compute edge's color and second time
             %in order to compute inner triangle's color
             %--- *FIRST TIME* ---
             %scan the image
-            for x=1:1200
+            for x = round(activePoints.x1)-1:1200
                 
                 %if active point found 
                 if x >= activePoints.x1 && set == 0
@@ -144,25 +144,18 @@ end
                     end
                     
                     %compute edges' color using linear interpolation 
-                    if (array(found).x2-array(found).x1) ~= 0 %general case
-                        vectorX = [x y];
-                        vectorX1 = [array(found).x1 array(found).y1];
-                        vectorX2 = [array(found).x2 array(found).y2];
-                        A(1) = r1 + (r2 - r1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
-                        A(2) = g1 + (g2 - g1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
-                        A(3) = b1 + (b2 - b1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
-                    else %case where vertical side exists 
-                        A(1) = r1 + (r2 - r1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
-                        A(2) = g1 + (g2 - g1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
-                        A(3) = b1 + (b2 - b1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
-                    end
+                    vectorX = [x y]; %current point
+                    vectorX1 = [array(found).x1 array(found).y1]; %first vertex
+                    vectorX2 = [array(found).x2 array(found).y2]; %second vertex
+                    A(1) = r1 + (r2 - r1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1); %apply linear interpolation
+                    A(2) = g1 + (g2 - g1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1);
+                    A(3) = b1 + (b2 - b1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1);
                     
                     %paint the points 
                     X(y,x,1) = A(1);
                     X(y,x,2) = A(2);
                     X(y,x,3) = A(3);
-                    set = 1; 
-                    
+                    set = 1;                    
                 elseif abs(x - activePoints.x2) < 1
                     for i=1:3 %if second active point found 
                         if activePoints.m2 == array(i).m 
@@ -188,28 +181,21 @@ end
                     end
                    
                     %compute edges' color using linear interpolation 
-                    if (array(found).x2-array(found).x1) ~= 0 %general case
-                        vectorX = [x y];
-                        vectorX1 = [array(found).x1 array(found).y1];
-                        vectorX2 = [array(found).x2 array(found).y2];
-                        B(1) = r1 + (r2 - r1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
-                        B(2) = g1 + (g2 - g1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
-                        B(3) = b1 + (b2 - b1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
-                    else %case where vertical side exists 
-                        B(1) = r1 + (r2 - r1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
-                        B(2) = g1 + (g2 - g1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
-                        B(3) = b1 + (b2 - b1)*norm(y - array(found).y1)/norm(array(found).y2 - array(found).y1);
-                    end
+                    vectorX = [x y]; %current point
+                    vectorX1 = [array(found).x1 array(found).y1]; %first vertex
+                    vectorX2 = [array(found).x2 array(found).y2]; %second vertex
+                    B(1) = r1 + (r2 - r1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1); %apply linear interpolation
+                    B(2) = g1 + (g2 - g1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
+                    B(3) = b1 + (b2 - b1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);                    
                     
                     %paint the points 
                     X(y,x,1) = B(1);
                     X(y,x,2) = B(2);
-                    X(y,x,3) = B(3);                   
-                    
+                    X(y,x,3) = B(3);                                       
                 end
 
                 %if x surpass the second active point we break the loop 
-                if x>activePoints.x2
+                if x > activePoints.x2
                     break;
                 end
             end
@@ -219,10 +205,11 @@ end
             
             %--- *SECOND TIME* ---
             %scan the image
-            for x=1:1200
+            for x = round(activePoints.x1)-1:1200
                 
                 %if active point found increase cross_count 
                 if x >= activePoints.x1 && set == 0
+                    %set the flag in order to know that first active point haw surpassed
                     set = 1; 
                     cross_count = cross_count +1;
                 end
@@ -235,8 +222,8 @@ end
                 if mod(cross_count,2) == 1
                     a = activePoints.x1;
                     b = activePoints.x2;
-                    color = colorInterp(A,B,a,b,x);%call function colorInterp to calculate the color 
-                    r = color(1);
+                    color = colorInterp(A,B,a,b,x); %call function colorInterp to calculate the color 
+                    r = color(1); %give r,g,b values
                     g = color(2);
                     b = color(3);
                     X(y,x,1) = r;
@@ -245,32 +232,32 @@ end
                 end
                 
                 %if x surpass the second active point we break the loop 
-                if x>= activePoints.x2
+                if x >= activePoints.x2
                     break;
                 end
             end
             
             %track active edges
-            %when y reaches minimum value of ymax array then we should
-            %change active sides and there is not a horizontal side.
+            %when y reaches minimum value of ymax array and there is not a horizontal side
+            %we should change active edges
             if y+1 == max(ymin(:)) && countYmax ~= 3 && countYmin ~= 3
                 
                 k = 1;
                 index = zeros(2,1);
-                newActiveEdges = zeros(2,1);
+                newActiveEdges = zeros(2,1);  %store here the new active edges
                 for i=1:3 %index contains new active edges 
                     if array(i).y1 == max(ymin(:)) || array(i).y2 == max(ymin(:))
-                    index(k) = i; 
+                    index(k) = i; %index contains the location (index) of new active edge in array
                     k = k + 1;
                     end
                 end
                 
                 k = 1;
                 hist = histcounts([activeEdges; index]);%hist contains the frequency of each element in 
-                                                        %array [activeEdges; index] which has the old and new active edges 
+                                                        %table -> [activeEdges; index] which has the old and new active edges 
                 for i = 1:length(hist)                  %so the element that has value 2 is the element that appears both 
                     if hist(i) == 1                     %in old and new active edges so it must be replaced.
-                        newActiveEdges(k) = i;
+                        newActiveEdges(k) = i; %keep only edges with hist == 1 
                         k = k + 1;
                     end
                 end
@@ -283,7 +270,7 @@ end
                     end
                 end
                 
-                for i = 1:3%the element that has value 2 is the element that must be replaced 
+                for i = 1:3 %the element that has value 2 is the element that must be replaced 
                     if hist(i) == 2
                         newIndex = i;
                     end
@@ -292,6 +279,7 @@ end
                 %find from array the information of the new activePoints
                 %after the change of active edges
                 for i =1:3
+                    
                     if flag(i) ~= 0
                         if array(i).y1 == max(ymin(:))
                             yNew = array(i).y1;
@@ -303,18 +291,19 @@ end
                         m = array(i).m;
                     end
                     if i == newIndex
-                        mEx = array(i).m; %this will be the edge that will be replaced
-                    end
+                        mPrev = array(i).m; %this will be the edge that will be replaced
+                    end                   %mPrev operates like the key to find the information 
+                                          %of active points that must be replaced
                 end
                 
                 %replace the iformation in activePoints
-                if activePoints.m1 == mEx  
+                if activePoints.m1 == mPrev  
                     activePoints.x1 = xNew;
                     activePoints.y1 = yNew;
                     activePoints.m1 = m;
                     activePoints.y2 = activePoints.y2 + 1;
                     activePoints.x2 = activePoints.x2 + 1/activePoints.m2;
-                elseif activePoints.m2 == mEx
+                elseif activePoints.m2 == mPrev
                     activePoints.x2 = xNew;
                     activePoints.y2 = yNew;
                     activePoints.m2 = m;
@@ -325,26 +314,38 @@ end
                 %after all calculations replace the new active edges
                 activeEdges = newActiveEdges;
     
-            else
-                %if active edges don't change y1 and y2 values in activePoints icrease by 1 
-                %and x value by 1/activePoints.m1 (1/m1) and 1/activePoints.m2 (1/m2) accordingly
-                activePoints.y1 = activePoints.y1 + 1;
-                activePoints.x1 = activePoints.x1 + 1/activePoints.m1;
-                activePoints.y2 = activePoints.y2 + 1;
-                activePoints.x2 = activePoints.x2 + 1/activePoints.m2;
+            else %this is the case where we don't change active edges 
+                 %if active edges don't change y1 and y2 values in activePoints icrease by 1 
+                 %and x value by 1/activePoints.m1 (1/m1) and 1/activePoints.m2 (1/m2) accordingly
+                 activePoints.y1 = activePoints.y1 + 1;
+                 activePoints.x1 = activePoints.x1 + 1/activePoints.m1;
+                 activePoints.y2 = activePoints.y2 + 1;
+                 activePoints.x2 = activePoints.x2 + 1/activePoints.m2;
             end
         end
-    else %this case is when vertices belong to the same line
-         
-        %compute color 
-        r = (C(1,1)+C(2,1)+C(3,1))/3;
-        g = (C(1,2)+C(2,2)+C(3,2))/3;
-        b = (C(1,3)+C(2,3)+C(3,3))/3;
+
+    else %this case happens when vertices belong to the same line
         
         if countY == 3 %if vertices are parallel to x axis  
-            maxX = max(V(:,1)); %find maximum and minimum value of x
-            minX = min(V(:,1));
+            [maxX,maxIndex] = max(V(:,1)); %find maximum and minimum value of x
+            [minX,minIndex] = min(V(:,1));
+            
+            %compute color of maximum and minimun vertex in order to use it later for linear interpolation  
+            r1 = C(maxIndex,1);
+            g1 = C(maxIndex,2);
+            b1 = C(maxIndex,3);
+            
+            r2 = C(minIndex,1);
+            g2 = C(minIndex,2);
+            b2 = C(minIndex,3);
+             
             for x = minX:maxX %scan image in x axis from min to max value of x and paint these points
+                
+                %compute color using linear interpolation
+                r = r1 + (r2 - r1) * norm(x - maxX) / norm(minX - maxX);
+                g = g1 + (g2 - g1) * norm(x - maxX) / norm(minX - maxX);
+                b = b1 + (b2 - b1) * norm(x - maxX) / norm(minX - maxX);
+                
                 X(V(1,2),x,1) = r;
                 X(V(1,2),x,2) = g;
                 X(V(1,2),x,3) = b;
@@ -352,9 +353,25 @@ end
         end
         
         if countX == 3 %if vertices are parallel to y axis
-            maxY = max(V(:,2)); %find maximum and minimum value of y
-            minY = min(V(:,2));
+            [maxY,maxIndex] = max(V(:,2)); %find maximum and minimum value of y
+            [minY,minIndex] = min(V(:,2));
+            
+            %compute color of maximum and minimun vertex in order to use it later for linear interpolation
+            r1 = C(maxIndex,1);
+            g1 = C(maxIndex,2);
+            b1 = C(maxIndex,3);
+            
+            r2 = C(minIndex,1);
+            g2 = C(minIndex,2);
+            b2 = C(minIndex,3);
+            
             for y = minY:maxY %scan image in y axis from min to max value of y and paint these points
+                
+                %compute color using linear interpolation
+                r = r1 + (r2 - r1) * norm(y - maxY) / norm(minY - maxY);
+                g = g1 + (g2 - g1) * norm(y - maxY) / norm(minY - maxY);
+                b = b1 + (b2 - b1) * norm(y - maxY) / norm(minY - maxY);
+                         
                 X(y,V(1,1),1) = r;
                 X(y,V(1,1),2) = g;
                 X(y,V(1,1),3) = b;
@@ -362,12 +379,32 @@ end
         end
         
         if countM == 3 %if vertices are in the same line (have the same slope)
-            maxY = max(V(:,2));%find maximum and minimum value of y
-            [minY,j] = min(V(:,2));
-            startX = V(j,1);
+            [maxY,maxIndex] = max(V(:,2));%find maximum and minimum value of y
+            [minY,minIndex] = min(V(:,2));
+            
+            %compute color of maximum and minimun vertex in order to use it later for linear interpolation
+            r1 = C(maxIndex,1);
+            g1 = C(maxIndex,2);
+            b1 = C(maxIndex,3);
+            
+            r2 = C(minIndex,1);
+            g2 = C(minIndex,2);
+            b2 = C(minIndex,3);            
+            
+            startX = V(minIndex,1);
             x = startX; %x is the rounded value of xMod 
             xMod = startX; %start value of x
+            
             for y = minY:maxY %scan image in y axis from min to max value of y 
+                
+                %compute color using linear interpolation
+                vectorX = [x y]; %current point
+                vectorX1 = [V(maxIndex,1) V(maxIndex,2)]; %max vertex 
+                vectorX2 = [V(minIndex,1) V(minIndex,2)]; %min vertex
+                r = r1 + (r2 - r1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1);
+                g = g1 + (g2 - g1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1);
+                b = b1 + (b2 - b1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1);
+                                     
                 X(y,x,1) = r; %and increase x by 1/m and paint these points
                 X(y,x,2) = g;
                 X(y,x,3) = b;
