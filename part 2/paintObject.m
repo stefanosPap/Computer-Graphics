@@ -45,10 +45,10 @@ function I = paintObject(V_2d,F,C,D,painter)
         %call triPaintFlat or triPaintGouraud according to variable painter
         if strcmp(painter,'Flat') == 1
             X = triPaintFlat(X,V,COL);
-            i
+            
         else
-            X = triPaintGouraud(X,V,COL,i);
-            i
+            X = triPaintGouraud(X,V,COL);
+            
         end
     end
     
