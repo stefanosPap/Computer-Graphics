@@ -11,7 +11,7 @@ function [P, D] = projectCamera(w, cv , cx , cy , p)
     end
     P = zeros(2,s(2));
     D = zeros(1,s(2));
-
+    
     p = systemtrans(p , cx , cy , cz , cv);
     for i = 1:s(2)
         x = (w * p(1,i)) / p(3,i);

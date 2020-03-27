@@ -1,8 +1,11 @@
-function Y = shadeGouraud(p, Vn, Pc, Cam, S, ka, kd, ks, ncoeff, Ia, I0, X,R,F,j)
+function Y = shadeGouraud(p, Vn, Pc, Cam, S, ka, kd, ks, ncoeff, Ia, I0, X)
     
     for i = 1:3
         Iam = ambientLight(ka(:,i),Ia);
         Idif = diffuseLight(Pc, Vn(:,i), kd(:,i),S,I0);
+        if Idif < 0
+            Idif = 0;
+        end
         Isp = specularLight(Pc, Vn(:,i), Cam, ks(:,i), ncoeff, S, I0);
         C(i,:) = Iam + Idif + Isp;
     end

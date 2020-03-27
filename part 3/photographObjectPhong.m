@@ -56,10 +56,11 @@ function Im = photographObjectPhong(shader, f, C, K, u, bC, M, N, H, W, R, F, S,
         
         %call triPaintFlat or triPaintGouraud according to variable painter
         if shader == 1
-            Y = shadeGouraud(p, Vn, Pc, C, S, kaArg, kdArg, ksArg, ncoeff, Ia, I0, Y,R,F,i);
+            Y = shadeGouraud(p, Vn, Pc, C, S, kaArg, kdArg, ksArg, ncoeff, Ia, I0, Y);
             i
         elseif shader == 2
             Y = shadePhong(p, Vn, Pc, C, S, kaArg, kdArg, ksArg, ncoeff, Ia, I0, Y);
+            i
         end
     end
     Im = Y;
