@@ -215,35 +215,7 @@ function Y = shadePhong(p, Vn, Pc, Cam, S, ka, kd, ks, ncoeff, Ia, I0, X,i)
                     end
                     Isp = specularLight(Pc, NA, Cam, KSA, ncoeff, S, I0);
                     color = Iam + Idif + Isp;
-                                        
-                    
-                    %find vertices' color
-%                     if found ~= 3 %case where active edges are 1 or 2 
-%                          r1 = C(found,1);
-%                          r2 = C(found+1,1);
-%                          g1 = C(found,2);
-%                          g2 = C(found+1,2);
-%                          b1 = C(found,3);
-%                          b2 = C(found+1,3);                     
-%                     else %case where active edge is 3
-%                          r1 = C(found,1);
-%                          r2 = C(found-2,1);
-%                          g1 = C(found,2);
-%                          g2 = C(found-2,2);
-%                          b1 = C(found,3);
-%                          b2 = C(found-2,3);                        
-%                     end
-%                     
-%                     %compute edges' color using linear interpolation
-%                     
-%                     
-%                     vectorX = [x y]; %current point
-%                     vectorX1 = [array(found).x1 array(found).y1]; %first vertex
-%                     vectorX2 = [array(found).x2 array(found).y2]; %second vertex
-%                     A(1) = r1 + (r2 - r1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1); %apply linear interpolation
-%                     A(2) = g1 + (g2 - g1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1);
-%                     A(3) = b1 + (b2 - b1) * norm(vectorX - vectorX1) / norm(vectorX2 - vectorX1);
-%                     
+                                                             
                     %paint the points 
                     X(y,x,1) = color(1);
                     X(y,x,2) = color(2);
@@ -345,34 +317,8 @@ function Y = shadePhong(p, Vn, Pc, Cam, S, ka, kd, ks, ncoeff, Ia, I0, X,i)
                        Idif = 0;
                     end
                     Isp = specularLight(Pc, NB, Cam, KSB, ncoeff, S, I0);
-                    color = Iam + Idif + Isp;
-                     
+                    color = Iam + Idif + Isp; 
                     
-                    %find vertices' color
-%                     if found ~= 3 %case where active edges are 1 or 2 
-%                          r1 = C(found,1);
-%                          r2 = C(found+1,1);
-%                          g1 = C(found,2);
-%                          g2 = C(found+1,2);
-%                          b1 = C(found,3);
-%                          b2 = C(found+1,3);                     
-%                     else %case where active edge is 3 
-%                          r1 = C(found,1);
-%                          r2 = C(found-2,1);
-%                          g1 = C(found,2);
-%                          g2 = C(found-2,2);
-%                          b1 = C(found,3);
-%                          b2 = C(found-2,3);                        
-%                     end
-%                    
-%                     %compute edges' color using linear interpolation 
-%                     vectorX = [x y]; %current point
-%                     vectorX1 = [array(found).x1 array(found).y1]; %first vertex
-%                     vectorX2 = [array(found).x2 array(found).y2]; %second vertex
-%                     B(1) = r1 + (r2 - r1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1); %apply linear interpolation
-%                     B(2) = g1 + (g2 - g1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);
-%                     B(3) = b1 + (b2 - b1)*norm(vectorX - vectorX1)/norm(vectorX2 - vectorX1);                    
-%                     
                     %paint the points 
                     X(y,x,1) = color(1);
                     X(y,x,2) = color(2);

@@ -1,4 +1,4 @@
-function [P, D, S] = projectKu(w, cv , cK , cu , p, S)
+function [P, D] = projectKu(w, cv , cK , cu , p)
     cv = cv(:);
     cu = cu(:);
     cK = cK(:);

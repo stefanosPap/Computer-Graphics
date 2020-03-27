@@ -4,13 +4,13 @@ load('hw3.mat');
  shader = 1;
 % 
 %% Ambient
-% Ka = ka;
-% Kd = 0*kd;
-% Ks = 0*ks;
-% Y = photographObjectPhong(shader,f,C,K,u,bC,M,N,H,W,R,F,S,Ka,Kd,Ks,ncoeff,Ia,I0);
-% %figure(1);
-% % imshow(Y);
-% imwrite(Y, 'gouraud_ambient.jpg');
+ Ka = ka;
+ Kd = 0*kd;
+ Ks = 0*ks;
+ Y = photographObjectPhong(shader,f,C,K,u,bC,M,N,H,W,R,F,S,Ka,Kd,Ks,ncoeff,Ia,I0);
+ %figure(1);
+ % imshow(Y);
+ imwrite(Y, 'gouraud_ambient.jpg');
 % 
  %% Difussion 
  Ka = 0*ka;
@@ -35,8 +35,8 @@ load('hw3.mat');
  Kd = kd;
  Ks = ks;
  Y = photographObjectPhong(shader,f,C,K,u,bC,M,N,H,W,R,F,S,Ka,Kd,Ks,ncoeff,Ia,I0);
-% %figure(4);
-% %imshow(Y);
+ %figure(4);
+ %imshow(Y);
  imwrite(Y, 'gouraud_all.jpg');
 
 %% Phong shader

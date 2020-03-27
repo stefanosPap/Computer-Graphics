@@ -30,29 +30,24 @@ function Im = photographObjectPhong(shader, f, C, K, u, bC, M, N, H, W, R, F, S,
     %corespondence 
     correspondenceTable = [d F(1,:)' F(2,:)' F(3,:)']; 
     correspondenceTable = sortrows(correspondenceTable,1); %sort them according to the first column 
-    P_2d = P_2d';
-    Normals = Normals';
-    ka = ka';
-    kd = kd';
-    ks = ks';
     
     for i = K:-1:1
         
         %in table V we store the coordinates of the three peaks
         %in order to give it as argument to function triPaintFlat or triPaintGouraud
-        p(:,1:3) = P_2d(correspondenceTable(i,2:4),:)'; 
+        p(:,1:3) = P_2d(:,correspondenceTable(i,2:4)); 
 
         %in matrix COL we store the colour of the three peaks
         %in order to give it as argument to function triPaintFlat or triPaintGouraud
-        Vn(:,1:3) = Normals(correspondenceTable(i,2:4),:)';
+        Vn(:,1:3) = Normals(:,correspondenceTable(i,2:4));
         
-        kaArg(:,1:3) = ka(correspondenceTable(i,2:4),:)';
+        kaArg(:,1:3) = ka(:,correspondenceTable(i,2:4));
         
-        kdArg(:,1:3) = kd(correspondenceTable(i,2:4),:)';
+        kdArg(:,1:3) = kd(:,correspondenceTable(i,2:4));
         
-        ksArg(:,1:3) = ks(correspondenceTable(i,2:4),:)';
+        ksArg(:,1:3) = ks(:,correspondenceTable(i,2:4));
         
-        Pc = (R(:,F(1,i)) + R(:,F(2,i)) + R(:,F(3,i))) / 3;
+        Pc = (R(:,correspondenceTable(i,2)) + R(:,correspondenceTable(i,3)) + R(:,correspondenceTable(i,4))) / 3;
         
         %call triPaintFlat or triPaintGouraud according to variable painter
         if shader == 1
