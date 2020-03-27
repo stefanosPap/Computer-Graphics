@@ -20,4 +20,9 @@ Firstly, it implements three different types of illymination **ambient**,**diffu
 
 The **first** method is **shadeGouraud** and is implemented as the **Gouraud** method in Part 1. The only difference is that it computes vertices' colour as the summary of ambient, diffusion and specular light.
 
+The **results** of the first method exist in *gouraud_ambient.jpg* , *gouraud_diffusion.jpg*, *gouraud_specular.jpg* and *gouraud_all.jpg* images. 
+
 The **second** method is **shadePhong** method. This method computes the normal vector of each side as the linear interpolation of the two corresponding vertices' normal vectors. It also computes the coefficients *ka*,*kd* and *ks* in a similar way. Having these parameters it computes the three types of lighting and gives a specific colour to each active point. The normal vectors and the coefficients *ka*,*kd*,*ks* of every inner pixel are computed as the linear interpolation of the two corresponding active points of the current scanline and similarly a specific color according to lighting's summary  is given to the pixel.
+
+
+The **results** of the second method exist in *phong_ambient.jpg* , *phong_diffusion.jpg*, *phong_specular.jpg* and *phong_all.jpg* images.
