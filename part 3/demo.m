@@ -3,7 +3,7 @@ load('hw3.mat');
 % %% Gouraud shader
  shader = 1;
 % 
-% %% Ambient
+%% Ambient
 % Ka = ka;
 % Kd = 0*kd;
 % Ks = 0*ks;
