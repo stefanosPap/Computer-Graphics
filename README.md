@@ -1,4 +1,3 @@
-
 **Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of coloring.**
 
 The **first** method is **Flat** method and it gives one specific color to each triangle which is computed as the mean of the three vertices' colors.
@@ -9,3 +8,8 @@ The **second** method is **Gouraud** method.This method gives a color to each tr
 	
 The **result** of the second method exists in *GouraudDuck.jpg* image.
 
+**Part 2 - Implements transformations, perspective projections and photographs the initial image.**
+
+Firstly it **translates** the image by a constant vector **t1** then it **rotates** it by a constant matrix **R** and finally it **translates** it by another constant vector **t2**.  
+
+The **result** of the three transformations exists in *0.jpg, 1.jpg, 2.jpg, 3.jpg* image.
