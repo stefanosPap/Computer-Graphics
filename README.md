@@ -2,7 +2,7 @@
 This project refers to the application of the computer graphics theory.
 
 ## Running
-In order to diplay the functionality of each part, there are one or more demo scripts at each part which can be run without any arguments. 
+In order to display the functionality of each part, there are one or more demo scripts at each part which can be run without any arguments. 
 ## Description 
 **Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of colouring.**
 
