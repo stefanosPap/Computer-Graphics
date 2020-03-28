@@ -2,11 +2,11 @@
 This project refers to the application of the computer graphics theory.
 
 ## Running
-In order to diplay the functionality of each part, there are one ore more demo scripts at each part which can be run without any arguments. 
+In order to diplay the functionality of each part, there are one or more demo scripts at each part which can be run without any arguments. 
 ## Description 
-**Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of coloring.**
+**Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of colouring.**
 
-The **first** method is **Flat** method and it gives one specific color to each triangle which is computed as the mean of the three vertices' colors.
+The **first** method is **Flat** method and it gives one specific color to each triangle which is computed as the mean of the three vertices' colours.
 
 The **result** of the first method exists in *FlatDuck.jpg* image. 
 
