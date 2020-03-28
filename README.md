@@ -4,7 +4,7 @@ This project refers to the application of the computer graphics theory.
 ## Running
 In order to display the functionality of each part, there are one or more demo scripts at each part which can be run without any arguments. 
 ## Description 
-**Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of colouring.**
+### **Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of colouring.**
 
 The **first** method is **Flat** method and it gives one specific color to each triangle which is computed as the mean of the three vertices' colours.
 
@@ -16,7 +16,7 @@ The **result** of the second method exists in *GouraudDuck.jpg* image.
 
 -------------------------------------------------------------------------------------------------------------------------
 
-**Part 2 - Implements transformations, perspective projections and photographs the initial image.**
+### **Part 2 - Implements transformations, perspective projections and photographs the initial image.**
 
 Firstly it **translates** the image by a constant vector **t1** then it **rotates** it by a constant matrix **R** and finally it **translates** it by another constant vector **t2**.  
 
@@ -24,7 +24,7 @@ The **result** of the three transformations exists in *0.jpg, 1.jpg, 2.jpg, 3.jp
 
 --------------------------------------------------------------------------------------------------------------------------
 
-**Part 3 - Implements object's illumination.**
+### **Part 3 - Implements object's illumination.**
 
 Firstly, it implements three different types of illumination **ambient**,**diffusion** and **specular**. It uses two methods to paint the objects. 
 
