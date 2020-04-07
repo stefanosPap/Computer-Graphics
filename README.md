@@ -15,13 +15,18 @@ The **second** method is **Gouraud** method.This method gives a color to each tr
 	
 The **result** of the second method exists in *GouraudDuck.jpg* image.
 ![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%201/GouraudDuck.jpg)
+
 -------------------------------------------------------------------------------------------------------------------------
 
 ### **Part 2 - Implements transformations, perspective projections and photographs the initial image.**
 
 Firstly it **translates** the image by a constant vector **t1** then it **rotates** it by a constant matrix **R** and finally it **translates** it by another constant vector **t2**.  
 
-The **result** of the three transformations exists in *0.jpg, 1.jpg, 2.jpg, 3.jpg* image.
+The **result** of the three transformations exists in *0.jpg, 1.jpg, 2.jpg, 3.jpg* image. 
+![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/0.jpg)
+![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/1.jpg)
+![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/2.jpg)
+![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/3.jpg)
 
 --------------------------------------------------------------------------------------------------------------------------
 
