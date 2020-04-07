@@ -8,12 +8,13 @@ In order to display the functionality of each part, there are one or more demo s
 
 The **first** method is **Flat** method and it gives one specific color to each triangle which is computed as the mean of the three vertices' colours.
 
-The **result** of the first method exists in *FlatDuck.jpg* image. 
+The **result** of the first method exists in *FlatDuck.jpg* image.
+![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%201/FlatDuck.jpg)
 
 The **second** method is **Gouraud** method.This method gives a color to each triangle's side which is computed as the linear interpolation of the two corresponding vertices' colors.The color of every inner pixel is computed as the linear interpolation of the two corresponding active points of the current scanline.
 	
 The **result** of the second method exists in *GouraudDuck.jpg* image.
-
+![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%201/GouraudDuck.jpg)
 -------------------------------------------------------------------------------------------------------------------------
 
 ### **Part 2 - Implements transformations, perspective projections and photographs the initial image.**
