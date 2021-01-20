@@ -4,7 +4,7 @@ This project refers to the application of the computer graphics theory.
 ## Running
 In order to display the functionality of each part, there are one or more demo scripts at each part which can be run without any arguments. 
 ## Description 
-### **Part 1 - Implements scanline algorithm for filling triangles.It uses two methods of colouring.**
+### **Part 1 - Implements scanline algorithm for filling triangles. It uses two methods of colouring.**
 
 The **first** method is **Flat** method and it gives one specific color to each triangle which is computed as the mean of the three vertices' colours.
 
@@ -29,7 +29,7 @@ The **result** of the three transformations exists in *0.jpg, 1.jpg, 2.jpg, 3.jp
 ![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/0.jpg)
 ##### Translation by t1
 ![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/1.jpg)
-##### Rotaion by R
+##### Rotation by R
 ![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/2.jpg)
 ##### Translation by t2
 ![alt text](https://github.com/stefanosPap/Computer-Graphics/blob/master/part%202/3.jpg)
